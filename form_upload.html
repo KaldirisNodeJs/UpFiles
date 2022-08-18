@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Azure Upload</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700;900&display=swap">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div style="margin:100px;" class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Grego + Azure + NodeJs  ==> </a>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/">Sobre</a>
+                </li>
+                <li>
+                    <a href="/">Upload</a>
+                </li>
+            </ul>
+        </div>
+        </nav>
+        <div class="jumbotron" style="padding:40px;">
+            <h1>Bem Vindo</h1>
+            <p>Form basico para envio de arquivos em nodess com fomidable</p>
+            <br>
+            <form action="/api/upload" enctype="multipart/form-data" method="post">
+                <input type="file" class="admin__input" id="profilePic" name="profilePic" />
+                <br>
+                <input class="admin__submit" type="submit" />
+                <br>
+                <!-- <p><a class="btn btn-primary btn-lg" type="submit" role="button">Enviar</a></p> -->
+            </form>
+
+        </div>
+    </div>
+</body>
+
+</html>
