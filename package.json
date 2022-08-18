@@ -4,5 +4,24 @@
     "formidable": "^2.0.1",
     "fs": "^0.0.1-security",
     "path": "^0.12.7"
-  }
+  },
+  "name": "upfiles",
+  "version": "1.0.0",
+  "description": "projeto teste upload formidable",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start":"node index.js",
+    "test": "node teste.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaldirisNodeJs/UpFiles.git"
+  },
+  "author": "Demetrios Kaldiris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KaldirisNodeJs/UpFiles/issues"
+  },
+  "homepage": "https://github.com/KaldirisNodeJs/UpFiles#readme"
 }
