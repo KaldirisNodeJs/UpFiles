@@ -9,6 +9,8 @@ const fs = require('fs');
 const path = require('path')
 const formidable = require('formidable');
 
+var port = process.env.PORT || 3000;
+
 const app = express();
 
 //===================================================================
@@ -41,7 +43,7 @@ app.post('/api/upload', (req, res, next) => {
 
 
 // Aciona o Servidor ===============================================
-app.listen(3000, function(err){
+app.listen(port, function(err){
 	if(err) console.log(err)
 	console.log('Servidor de Envio Ativado | http://localhost:3000');
 });
