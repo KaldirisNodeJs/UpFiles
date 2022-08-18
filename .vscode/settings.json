@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/02d00c88-391e-4f1c-a537-7e333a5223ac/microsoft.web/sites/subscriptions/02d00c88-391e-4f1c-a537-7e333a5223ac/resourceGroups/GrpRecursos1/providers/Microsoft.Web/sites/JsUp",
+    "appService.deploySubpath": "."
+}
