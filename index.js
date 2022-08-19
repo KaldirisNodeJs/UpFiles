@@ -39,37 +39,34 @@ app.post('/api/upload', (req, res, next) => {
         console.log("OLDPATH-Recebido: ",oldPath);
 		var newPath = path.join(__dirname, 'uploads') + '\\'+files.profilePic.originalFilename;
         console.log("NEWPATH-SalvoUploads: ",newPath);
-        var rawData = fs.readFileSync(oldPath)
-        //console.log("RAW DATA",rawData);
+        
+		//==  Grava na pasta o arquivo recebido == 
+		var rawData = fs.readFileSync(oldPath)
 		fs.writeFile(newPath, rawData, function(err){
 			if(err) console.log(err)
-			return res.send(files);
+
+			var   ret = "<table><tr><td colspan=2>"
+			ret = ret + "ARQUIVO RECEBIDO COM SUCESSO ! </td></tr>";
+			ret = ret + "<tr><td>Nome</td><td>"+files.profilePic.originalFilename + "</td></tr>";
+			ret = ret + "<tr><td>Tipo</td><td>"+files.profilePic.mimetype + "</td></tr>";
+			ret = ret + "<tr><td>Tamanho</td><td>"+files.profilePic.size + "</td></tr>";
+						
+			//=== OK ===
+			//var data =fs.readFileSync(newPath);
+			//console.log(files.profilePic.mimetype);
+			//res.contentType(files.profilePic.mimetype);
+			//== Envia direto para o Browse ==
+			//res.send(data);
+			//res.end();
+			//== Faz o Download do Arquivo Recebido ==
+			//res.download(newPath);
+
+			res.send(ret);
+
 		});
 
-		// // Lendo o arquivo gravado
-		// if (fs.existsSync(newPath))
-		// {
-		// 	fs.readFile(newPath,(err,data)=>{
-		// 		if(err){
-		// 			consol.log(err);
-		// 		}else{
-		// 			const stat = fs.statSync(newPath);
-		// 			res.contentType('application/pdf');
-		// 			res.setHeader('Content-Length', stat.size);
-		// 			res.setHeader('Content-Type', 'application/pdf');
-		// 			res.setHeader('Content-Disposition', 'attachment; filename=report.pdf');
-		// 			// *Should force download the file to the browser*
-		// 			res.download(newPath, 'report.pdf', function(e) {
-		// 				if (e){
-		// 					console.log("Erro:",e.message);
-		// 				}else{
-		// 					console.log("OK");
-		// 				}
-		// 			});
-		// 		}
-		// 	});
-		// }
-
+		
+		
 		
 
 
