@@ -54,9 +54,22 @@
             </form>
             <br><br>
             <hr>
-            <button class="btn btn-primary" onclick="onOffDivDir()" role="button">Listar</button>
-            <div id="dirlist">
-                <h3>Lista de Arquivos</h3>                    
+
+
+
+            <button class="btn btn-primary" onclick="onOffDivDir()" role="button">Listar/Ocultar</button>
+            <div id="dirlist" style="display:none">
+                <h3>Lista de Arquivos</h3>  
+                <br>
+                <table>
+                {{#files}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{ext}}</td>
+                    <td aligne="right">{{status.size}}</td>
+                <tr>
+                {{/files}}                  
+                </table>
             </div>
     
 

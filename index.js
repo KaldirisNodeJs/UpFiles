@@ -4,17 +4,30 @@
 // npm install fs
 // npm install --save path
 
-const express 	= require('express');
-const fs 	  	= require('fs');
-const path    	= require('path')
-const dirTree 	= require("directory-tree");
-const formidable= require('formidable');
+const express = require('express');
+const mustacheExpress = require('mustache-express');
+const fs = require('fs');
+const path = require('path')
+const dirTree = require("directory-tree");
+const formidable = require('formidable');
 
 const directoryPath = path.join(__dirname);
+var files = readFilesSync(directoryPath);
+
 const port = process.env.PORT || 3000;
+
+
 
 const app = express();
 app.use(express.static('public'));
+app.use(express.static('./src/views'));
+
+app.engine('mustache', mustacheExpress());
+app.set('view engine', 'mustache');
+app.set('views', './src/views');
+
+// app.set('view engine', 'ejs');
+
 
 //===================================================================
 // EndPoint de Envio
@@ -27,7 +40,8 @@ app.get('/', (req, res) =>
 	//res.sendFile(path.join(__dirname, '../public', 'index1.html'));
 	//res.sendFile('index.html', { root: __dirname })
 	//res.sendFile( `${process.cwd()}/public/index1.html` );
-	res.status(200).sendFile(path.join(__dirname, '/form_upload.html'))
+	//res.status(200).sendFile(path.join(__dirname, '/form_upload.html'))
+	res.status(200).render('homedinamico.mustache', { files: files })
 );
 
 app.get('/api/dirtree', (req, res, next) => {
@@ -38,22 +52,28 @@ app.get('/api/dirtree', (req, res, next) => {
 
 
 app.get('/api/dir2', (req, res, next) => {
-	const files = readFilesSync(directoryPath);
-	console.log(files);
+	files = readFilesSync(directoryPath);
+	//console.log(files);
+	// res.status(200).send(files);
+	// document.getElementById("dirlist").innerHTML = "whatever";
+	
+	//*************************** PAGINA DINAMICA ************************ 
+	// let animals = [
+	// 	{ name: 'Nome 1' },
+	// 	{ name: 'Nome 2' },
+	// 	{ name: 'Nome 3' },
+	// 	{ name: 'Nome 4' }
+	// ];
+	//res.render('sample.ejs', { animals: animals });
+	//res.render('sample.mustache', { animals: animals });
 
-	// const targetDiv = document.getElementById("dirlist");
-    // if (targetDiv.style.display !== "none") 
-	// {
-    //     targetDiv.style.display = "none";
-    // } else {
-    //     targetDiv.style.display = "block";
-    // };
-    
+	res.render('homedinamico.mustache', { files: files });
 
 
 
 
-	res.status(200).send(files);
+
+
 });
 
 
@@ -64,11 +84,9 @@ app.get('/api/dir', (req, res, next) => {
 	// 	if (err) {
 	// 		return console.log('Erro: ' + err);
 	// 	}
-	
 	console.log("---------------------------------");
 	var ret = "<table><tr><td>Diretorio:</td><td>" + directoryPath.toString() + "</td><tr>";
 	var tipo = "";
-
 	fs.readdirSync(directoryPath).forEach(file => {
 		if (fs.lstatSync(path.resolve(directoryPath, file)).isDirectory()) {
 			console.log('Directory: ' + file);
@@ -77,14 +95,8 @@ app.get('/api/dir', (req, res, next) => {
 			console.log('File: ' + file);
 			tipo = "Arquivo:";
 		}
-		ret = ret + "<tr><td>" + tipo + "</td><td>" + file.toString() + "</td><tr>";
 	});
-	ret = ret + "</table>";
-
 	console.log("================================");
-	console.log(ret);
-
-	// });
 	res.status(200).send(ret);
 
 });
@@ -153,31 +165,31 @@ app.listen(port, function (err) {
  * const files = readFilesSync('absolute/path/to/directory/');
  ***************************************************************************************************************************
  */
- function readFilesSync(dir) {
+function readFilesSync(dir) {
 	const files = [];
-  	fs.readdirSync(dir).forEach(filename => {
-	  const name = path.parse(filename).name;
-	  const ext = path.parse(filename).ext;
-	  const filepath = path.resolve(dir, filename);
-	  const stat = fs.statSync(filepath);
-	  const isFile = stat.isFile();
-      var status = "folder";
-	  if(isFile){
-		status = fs.statSync(filepath);
-	  }
+	fs.readdirSync(dir).forEach(filename => {
+		const name = path.parse(filename).name;
+		const ext = path.parse(filename).ext;
+		const filepath = path.resolve(dir, filename);
+		const stat = fs.statSync(filepath);
+		const isFile = stat.isFile();
+		var status = "folder";
+		if (isFile) {
+			status = fs.statSync(filepath);
+		}
 
-	  // Só Arquivos
-	  //if (isFile) files.push({ filepath, name, ext, stat });
+		// Só Arquivos
+		//if (isFile) files.push({ filepath, name, ext, stat });
 
-	  files.push({ filepath, name, ext, isFile, status });
+		files.push({ filepath, name, ext, isFile, status });
 
 	});
-  
+
 	files.sort((a, b) => {
-	  // natural sort alphanumeric strings
-	  // https://stackoverflow.com/a/38641281
-	  return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
+		// natural sort alphanumeric strings
+		// https://stackoverflow.com/a/38641281
+		return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
 	});
-  
+
 	return files;
-  }
+}
