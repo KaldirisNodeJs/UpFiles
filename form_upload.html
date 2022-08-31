@@ -13,8 +13,9 @@
 
 <body>
     <div style="margin:100px;" class="navbar navbar-inverse navbar-static-top">
+        <nav>
         <div class="container">
-            <a class="navbar-brand" href="/">Grego + Azure + NodeJs  ==> </a>
+            <a class="navbar-brand" href="/">Grego + Azure / Render + NodeJs  ==> </a>
             <ul class="nav navbar-nav">
                 <li class="active">
                     <a href="/">Home</a>
@@ -23,14 +24,15 @@
                     <a href="/">Sobre</a>
                 </li>
                 <li>
-                    <a href="/">Upload</a>
+                    <a href="/api/dir2">Dir</a>
                 </li>
             </ul>
         </div>
         </nav>
+
         <div class="jumbotron" style="padding:40px;">
             <h1>Bem Vindo</h1>
-            <p>Form basico para envio de arquivos em nodess com fomidable</p>
+            <p>Form basico para envio de arquivos em NodeJs com Fomidable</p>
             <br>
             <form action="/api/upload" enctype="multipart/form-data" method="post">
                 <input type="file" class="admin__input" id="profilePic" name="profilePic" />
@@ -39,8 +41,13 @@
                 <br>
                 <!-- <p><a class="btn btn-primary btn-lg" type="submit" role="button">Enviar</a></p> -->
             </form>
+            <br><br>
+            <div id="dirlist">
+            </div>
+    
 
         </div>
+
     </div>
 </body>
 
