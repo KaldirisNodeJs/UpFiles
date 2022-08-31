@@ -4,6 +4,7 @@
 // npm install fs
 // npm install --save path
 
+const os = require('os');
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const fs = require('fs');
@@ -42,6 +43,10 @@ app.get('/', (req, res) =>
 	//res.sendFile( `${process.cwd()}/public/index1.html` );
 	//res.status(200).sendFile(path.join(__dirname, '/form_upload.html'))
 	res.status(200).render('homedinamico.mustache', { files: files })
+);
+
+app.get('/info', (req, res) =>
+	res.status(200).send(os.hostname())
 );
 
 app.get('/api/dirtree', (req, res, next) => {
